@@ -19,15 +19,19 @@ public class Decrypter implements Runnable{//Producer
 		String plaintext =rf.decrypt(cypherText, key);
 		//get the score
 		
-		Resultable r = null;//create a result
+		System.out.println(plaintext);
 		
-		try {
+		
+		
+		//Resultable r = null;//create a result
+		
+		/*try {
 			queue.put(r);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			System.out.println("error putting on queue");
 			e.printStackTrace();
 		}
-		
+		*/
 	}
 
 }
