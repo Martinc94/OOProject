@@ -1,7 +1,7 @@
 package ie.gmit.sw;
 
 import java.util.Map;
-import java.util.concurrent.*;
+
 
 public class TextScorer {
 	private Map<String, Double> map = null;

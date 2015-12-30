@@ -1,5 +1,9 @@
 package ie.gmit.sw;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class Runner {
 
 	public static void main(String[] args) {
@@ -21,19 +25,16 @@ public class Runner {
 		//String cypherText = "STOPTHEMATTHECASTLEGATES";
 		String cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
 		
-		Worker cy = new Worker(cypherText);
+		//fill quadgramMap
+		QuadGramMap.fillMap();	
 		
-		for(int i = 2;i<=cypherText.length()/2;i++ ){
-			System.out.println("creating worker thread with key "+i);
-			new Thread(new Decrypter(Consumer.queue, cypherText,i)).start();
-			
-		}
+		//creates worker threads that decrypts the cyphertext with different keys
+		Worker w = new Worker(cypherText);
+		
+		//
 		
 		
 		
-		for (int j = 0; j < 1000000; j++) {
-			
-		}
 		
 		
 		 System.out.println("end");

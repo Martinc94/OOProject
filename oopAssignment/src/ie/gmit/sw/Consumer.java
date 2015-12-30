@@ -10,5 +10,28 @@ public class Consumer {
 		//6 consumer takes result from queue and compare
 
 	}
+	
+	/*
+	 //consume results
+	 new Thread(new Runnable() {
+			public void run() {
+				System.out.println("starting to run");
+				while(!queue.isEmpty()){					
+					try {
+						System.out.println("taking from queue");
+						Resultable r = queue.take();
+						
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					//do something
+				}
+			}
+		}); 
+	  
+	  
+	 
+	  
+	 */
 
 }
