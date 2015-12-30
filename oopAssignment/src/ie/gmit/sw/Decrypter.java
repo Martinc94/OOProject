@@ -16,30 +16,32 @@ public class Decrypter implements Runnable{//Producer
 	}
 
 	public void run() {
+		//Create a RailFence object
 		RailFence rf = new RailFence();
+		
+		//RailFence object decrypts cypherText with given key
 		String plaintext =rf.decrypt(cypherText, key);
-		//get the score
 		
-		///create a map string double from plaintext
-		//Map<String, Double> map = null;
-		
+		//Create a textScorer object and pass it QuadGramMap
 		TextScorer ts = new TextScorer(QuadGramMap.QMap);
 		
 		//System.out.println(ts.getScore(plaintext)+ " "+key);
 		
-		Resultable r = null;//create a result
+		//create a result
+		Resultable r = null;
 		
-		//initialise result
+		//initialise the result
 		r = new Result(plaintext, key, ts.getScore(plaintext));
 		
-		
+		//try to add to queue
 		try {
-			queue.put(r);
+			Consumer.queue.put(r);
 		} catch (InterruptedException e) {
-			//System.out.println("error putting on queue");
 			e.printStackTrace();
 		}
-	
+
+	    Runner.count++;
+	    System.out.println("                               "+Runner.count);
 		
 		//results in queue
 		//System.out.println(queue.toString());
