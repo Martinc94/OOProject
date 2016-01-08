@@ -25,6 +25,8 @@ public class Decrypter implements Runnable{//Producer
 		//Create a textScorer object and pass it QuadGramMap
 		TextScorer ts = new TextScorer(QuadGramMap.QMap);
 		
+		//System.out.println(plaintext);
+		
 		//System.out.println(ts.getScore(plaintext)+ " "+key);
 		
 		//create a result
@@ -33,15 +35,17 @@ public class Decrypter implements Runnable{//Producer
 		//initialise the result
 		r = new Result(plaintext, key, ts.getScore(plaintext));
 		
-		//try to add to queue
-		try {
-			Consumer.queue.put(r);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		while(Consumer.queue.size()>Consumer.MAX_QUEUE_SIZE){
+			//try to add to queue
+			try {
+				Consumer.queue.put(r);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
-	    Runner.count++;
-	    System.out.println("                               "+Runner.count);
+	    //Runner.count++;
+	    //System.out.println("                               "+Runner.count);
 		
 		//results in queue
 		//System.out.println(queue.toString());

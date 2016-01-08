@@ -8,7 +8,7 @@ public class Consumer {
 	static final int MAX_QUEUE_SIZE=100;
 	private String resultText;
 	private double resultKey=0;
-	private double resultScore=0;
+	private double resultScore=-1000;
 	
 	
 
@@ -23,21 +23,24 @@ public class Consumer {
 		new Thread(new Runnable() {
 			public void run() {
 				System.out.println("starting threads");
-				
-				while(true){
+				System.out.println(queue.isEmpty());
+				//while(true){
 				//while(!queue.isEmpty()){
 					//test for poisonResult
-					Resultable t = queue.peek();
-					System.out.println(t.getClass());
+					//Resultable t = queue.peek();
+					//System.out.println(t.getClass());
 					
-					if(t instanceof PoisonResult == true){
+					//if(t instanceof PoisonResult == true){
 						
-						System.out.println("t is a poisonResult");
-					}
+						//System.out.println("t is a poisonResult");
+					//}
 					
-					while(t instanceof PoisonResult == false){
+					//while(t instanceof PoisonResult == false){
+					//System.out.println(queue.isEmpty());
+					
+					if(queue.isEmpty()==false){
 						try {
-							//System.out.println("taking from queue");
+							System.out.println("taking from queue");
 							Resultable r = queue.take();
 							
 							//save if better than 0
@@ -53,10 +56,11 @@ public class Consumer {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}//end while
+					}
+					//}//end while
 					//do something
 				}
-			}
+			//}
 		}).start();
 		
 		
@@ -64,8 +68,10 @@ public class Consumer {
 	
 	public void getResults(){
 		System.out.println("Plaintext is "+resultText);
-		System.out.println("Key is "+resultKey);
-		System.out.println("best Score is "+resultScore);
+		//System.out.println("Key is "+resultKey);
+		//System.out.println("best Score is "+resultScore);
+		System.out.printf("Key is %.0f\n",resultKey);
+		System.out.printf("best Score is %.2f",resultScore);
 		
 	}
 	
