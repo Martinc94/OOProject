@@ -1,9 +1,8 @@
 package ie.gmit.sw;
 
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
-public class Decrypter implements Runnable{//Producer
+public class Decrypter implements Runnable{
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int key;
@@ -24,47 +23,22 @@ public class Decrypter implements Runnable{//Producer
 		
 		//Create a textScorer object and pass it QuadGramMap
 		TextScorer ts = new TextScorer(QuadGramMap.QMap);
-		
-		//System.out.println(plaintext);
-		
-		//System.out.println(ts.getScore(plaintext)+ " "+key);
-		
+	
 		//create a result
 		Resultable r = null;
 		
 		//initialise the result
 		r = new Result(plaintext, key, ts.getScore(plaintext));
-		
-		while(Consumer.queue.size()>Consumer.MAX_QUEUE_SIZE){
-			//try to add to queue
-			try {
-				Consumer.queue.put(r);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+			
+		//try to add to queue
+		try {
+			//Inserts the specified element into this queue, waiting if necessary for space to become available
+			queue.put(r);
+			Runner.finCount++;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}//end catch
 
-	    //Runner.count++;
-	    //System.out.println("                               "+Runner.count);
-		
-		//results in queue
-		//System.out.println(queue.toString());
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		//System.out.println(plaintext+" "+ key);
-	}
+	}//end run
 
-}
+}//end decypter

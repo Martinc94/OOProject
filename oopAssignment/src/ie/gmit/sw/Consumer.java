@@ -1,7 +1,10 @@
 package ie.gmit.sw;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Consumer {
 	public static BlockingQueue<Resultable> queue;
@@ -10,20 +13,13 @@ public class Consumer {
 	private double resultKey=0;
 	private double resultScore=-1000;
 	
-	
 
 		//6 consumer takes result from queue and compare
 	
-	public void consume(){
-		
-		System.out.println("In consumer ");
-		
-		//in loop until poisoned
-		
+	public void consume(){	
+		//in loop until poisoned	
 		new Thread(new Runnable() {
 			public void run() {
-				System.out.println("starting threads");
-				System.out.println(queue.isEmpty());
 				//while(true){
 				//while(!queue.isEmpty()){
 					//test for poisonResult
@@ -42,25 +38,20 @@ public class Consumer {
 						try {
 							System.out.println("taking from queue");
 							Resultable r = queue.take();
+							Runner.consumeCount++;
 							
 							//save if better than 0
 							if(r.getScore()>resultScore){
 								resultScore=r.getScore();
 								resultKey=r.getKey();
 								resultText=r.getPlaintext();
-							}//if
-							
-							//System.out.println(r.getKey()+" "+r.getScore());
-							
+							}//if						
 							
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
-					//}//end while
-					//do something
 				}
-			//}
 		}).start();
 		
 		
@@ -68,8 +59,6 @@ public class Consumer {
 	
 	public void getResults(){
 		System.out.println("Plaintext is "+resultText);
-		//System.out.println("Key is "+resultKey);
-		//System.out.println("best Score is "+resultScore);
 		System.out.printf("Key is %.0f\n",resultKey);
 		System.out.printf("best Score is %.2f",resultScore);
 		

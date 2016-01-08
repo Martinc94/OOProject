@@ -1,11 +1,17 @@
 package ie.gmit.sw;
 
+import java.awt.Menu;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Scanner;
 
 public class Runner {
 	//public static int count;
+	static Scanner console = new Scanner(System.in);
+	public static int finCount=2;
+	public static int totalCount=2;
+	public static int consumeCount=2;
 
 	public static void main(String[] args) {
 		//1 get cyphertext
@@ -22,15 +28,18 @@ public class Runner {
 		
 		//7 output plaintext
 		
+		String cypherText="";
 		
+		//Get Cyphertext
+		//cypherText= getCyphertext();
+		cypherText="SATTMTSLSOETAEEPHHCGTTEA";	
 	
 		//STOPTHEMATTHECASTLEGATES
-		String cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
+		//String cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
 		
 		//fill quadgramMap
 		QuadGramMap.fillMap();	
 		
-		//System.out.println("before worker");
 		//create a worker with threads that decrypts the cyphertext with different keys
 		Worker w = new Worker(cypherText);
 		
@@ -46,17 +55,67 @@ public class Runner {
 			//System.out.println("loop");
 		//}
 		
-		System.out.println("before consumer check");
-		while(Consumer.queue.peek()instanceof PoisonResult == true){
+		while(Consumer.queue.peek()instanceof PoisonResult == false){
 			c.consume();
-			System.out.println("loop");
 		}
 		System.out.println("after consumer check");
 		
 		//output plaintext, key and score of the highest scoring decrypted text
 		 //System.out.println("output of plaintext, key and score of the highest scoring decrypted text");
+		while(consumeCount!=totalCount){
+			//wait until all finished consuming
+		}//end while
+		
 		c.getResults();
 
 	}
+	
+	static void showMenu(){
+		System.out.println("Option 1 - Enter cyphertext by keyboard:");	
+		System.out.println("Option 2 - Enter cyphertext from file:");	
+		System.out.println("Enter your option:");			
+				
+	}//end showMenu
+	
+	static String getCyphertext(){
+		int option=0;
+		String command;
+		boolean valid=false;
+		String text = "";
+		do{
+			showMenu();
+			//option = console.nextInt();
+			if (console.hasNextInt()){
+				option = console.nextInt();   		    
+			}
+	        else {
+	        	console.next();
+	        	System.out.println("Invalid Input");
+	        }
+			//switch on option
+			switch (option) {
+			case 1:
+				//enter cyphertext
+				System.out.println("Enter your Cyphertext to be decrypted: Eg SATTMTSLSOETAEEPHHCGTTEA");
+				text = console.next();
+				text =text.toUpperCase();
+			    valid=true;	
+				break;
+				
+			case 2:
+				//enter file directory
+				System.out.println("Enter file directory of Cyphertext to be decrypted: Eg C:/myFolder/cyphertext.txt");
+				//parseFile Method
+				//
+				valid=true;
+				break;
+			default:
+				break;
+			}
+						
+		}while(valid==false);
+		
+		return text;
+	}//end getCyphertext
 
-}
+}//end runner
