@@ -33,8 +33,9 @@ public class Decrypter implements Runnable{
 		//try to add to queue
 		try {
 			//Inserts the specified element into this queue, waiting if necessary for space to become available
+			//System.out.println("Putting on queue");
 			queue.put(r);
-			Runner.finCount++;
+			Runner.incrementFinCount();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}//end catch

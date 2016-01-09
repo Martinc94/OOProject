@@ -3,6 +3,7 @@ package ie.gmit.sw;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -13,32 +14,50 @@ public class Consumer {
 	private double resultKey=0;
 	private double resultScore=-1000;
 	
-
-		//6 consumer takes result from queue and compare
 	
+	public Consumer() {
+		//starts threads
+		startConsumer();
+		System.out.println("start consumer");
+	}
+	
+	private void startConsumer() {
+		//if(queue.isEmpty()!=true){
+		//Resultable test= queue.peek();
+		//System.out.println(test.getKey());
+		//System.out.println(test instanceof PoisonResult);
+		//while(queue.peek()instanceof PoisonResult == false){
+			//System.out.println(queue.peek()instanceof PoisonResult);
+			//consume();
+		//}//end while
+		//}
+		
+		while (Runner.finished==false) {
+			consume();
+			//System.out.println(Runner.finished);
+		}
+		System.out.println("done");
+		
+	}//end startConsumer
+
 	public void consume(){	
 		//in loop until poisoned	
 		new Thread(new Runnable() {
 			public void run() {
-				//while(true){
-				//while(!queue.isEmpty()){
-					//test for poisonResult
-					//Resultable t = queue.peek();
-					//System.out.println(t.getClass());
 					
-					//if(t instanceof PoisonResult == true){
-						
-						//System.out.println("t is a poisonResult");
-					//}
-					
-					//while(t instanceof PoisonResult == false){
-					//System.out.println(queue.isEmpty());
-					
-					if(queue.isEmpty()==false){
+					//if(queue.isEmpty()==false){
+					if(Runner.finished==false){
 						try {
 							System.out.println("taking from queue");
 							Resultable r = queue.take();
-							Runner.consumeCount++;
+							Runner.incrementConsumeCount();
+							
+							if(r instanceof PoisonResult == true)
+							{
+								System.out.println("POISONED");
+								Runner.finished=true;
+							}
+							
 							
 							//save if better than 0
 							if(r.getScore()>resultScore){

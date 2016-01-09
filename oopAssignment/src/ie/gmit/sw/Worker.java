@@ -26,7 +26,7 @@ public class Worker {
 		boolean end=false;
 		
 		while(end==false){
-			//System.out.println(Runner.totalCount+"tot      fin"+Runner.finCount);
+			System.out.println(Runner.totalCount+" tot      fin "+Runner.finCount);
 			if(Runner.totalCount==Runner.finCount){
 				//Adds Poisoned Result to queue to signal all finished
 				AddPoisonResult();
@@ -38,7 +38,7 @@ public class Worker {
 	
 	public void AddPoisonResult(){
 		PoisonResult po = new PoisonResult("Poison", -9999, -9999);
-		//System.out.println("adding poison result");
+		System.out.println("adding poison result");
 		try {
 			Consumer.queue.put(po);
 		} catch (InterruptedException e) {
@@ -49,7 +49,7 @@ public class Worker {
 	
 	public void calcTotal(){
 		for(int i = 2;i<=cypherText.length()/2;i++ ){	
-			Runner.totalCount++;	
+			Runner.incrementTotalCount();	
 		}//end for
 	}
 
