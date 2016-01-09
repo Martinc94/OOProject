@@ -13,32 +13,20 @@ public class FileParser {
 	
 	@SuppressWarnings("resource")
 	public void parse() throws IOException{
-		
 		String fileName="4grams.txt";
 		BufferedReader br = null;
-		
-		//InputStreamReader file= new InputStreamReader(new FileInputStream(fileName));
-		
-		//BufferedReader br = new BufferedReader(file);
-		
 		br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 		
 		String next;
 		
-		while((next = br.readLine())!= null){
-			//add line to map
+		while((next = br.readLine())!= null){	
 			//split the string
 			String[] split = next.split(" ");
-			
-			//System.out.println(split[0]);
-			//System.out.println(split[1]);
-			
+			//parse the double
 			double sNum = Double.parseDouble(split[1]);
-			
+			//add to map
 			QuadGramMap.QMap.put(split[0], sNum);
 			
-		}//while
-		
+		}//while	
 	}//parse
-
-}
+}//end fileparser

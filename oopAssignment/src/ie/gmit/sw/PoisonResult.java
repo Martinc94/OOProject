@@ -3,8 +3,9 @@ package ie.gmit.sw;
 public class PoisonResult implements Resultable{
 
 	public PoisonResult(String plaintext, int key, double score) {
-		//super(plaintext, key, score);
-		
+		setPlaintext(plaintext); 
+		setKey(key);
+		setScore(score);	
 	}
 
 	@Override

@@ -20,7 +20,6 @@ public class Decrypter implements Runnable{
 		
 		//RailFence object decrypts cypherText with given key
 		String plaintext =rf.decrypt(cypherText, key);
-		//System.out.println(plaintext +"  "+key);
 		
 		//Create a textScorer object and pass it QuadGramMap
 		TextScorer ts = new TextScorer(QuadGramMap.QMap);
@@ -33,15 +32,11 @@ public class Decrypter implements Runnable{
 			
 		//try to add to queue
 		try {
-			//Inserts the specified element into this queue, waiting if necessary for space to become available
-			//System.out.println("Putting on queue");
-			
+			//Inserts the specified element into this queue, waiting if necessary for space to become available	
 			queue.put(r);
 			Runner.incrementFinCount();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}//end catch
-
 	}//end run
-
 }//end decypter

@@ -10,15 +10,9 @@ public class Runner {
 	public static int consumeCount=2;
 	public static boolean finished=false;
 
-	public static void main(String[] args) {
-		String cypherText="";
-		
+	public static void main(String[] args) {	
 		//Get Cyphertext
-		cypherText= getCyphertext();
-		System.out.println(cypherText);
-		
-		//reading from file doesnt add poison result
-
+		String cypherText= getCyphertext();
 		//STOPTHEMATTHECASTLEGATES - used while testing code
 		//cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
 		
@@ -26,13 +20,12 @@ public class Runner {
 		QuadGramMap.fillMap();			
 			
 		//create a worker with threads that decrypts the cyphertext with different keys
-		System.out.println("Starting To Decrypt");
 		Worker w = new Worker(cypherText);
 		
 		//creates a new consumer with threads that check score and returns best result
-		System.out.println("Starting To Consume");
 		Consumer c = new Consumer();	
 		
+		System.out.println("Waiting For Consumers for Finish");
 		while(getFinished()==false){
 			//wait until all finished consuming
 		}//end while
@@ -49,13 +42,11 @@ public class Runner {
 	
 	static String getCyphertext(){
 		int option=0;
-		//String command;
 		boolean valid=false;
 		String input = "";
 		String text = "";
 		do{
 			showMenu();
-			//option = console.nextInt();
 			if (console.hasNextInt()){
 				option = console.nextInt();   		    
 			}
@@ -76,9 +67,7 @@ public class Runner {
 			case 2:
 				//enter file directory
 				System.out.println("Enter file directory of Cyphertext to be decrypted: Eg C:/myFolder/cyphertext.txt");
-				//C:/Users/Martinc/Desktop/file1.txt
-				//input = console.next();
-				input="C:/Users/Martinc/Desktop/file1.txt";
+				input = console.next();
 				CypherParser cy = new CypherParser();
 				try {
 					text=cy.parseFile(input);
@@ -107,11 +96,9 @@ public class Runner {
 	public static synchronized void incrementConsumeCount() {
 		consumeCount++;
     }
-	
 	public static synchronized boolean getFinished(){
 		return finished;	
 	}
-	
 	public static synchronized int getTotalCount(){
 		return totalCount;	
 	}
@@ -120,8 +107,7 @@ public class Runner {
 	}
 	public static synchronized int getConsumeCount(){
 		return consumeCount;	
-	}
-	
+	}	
 	public static synchronized void setFinished(){
 		finished=true;	
 	}
