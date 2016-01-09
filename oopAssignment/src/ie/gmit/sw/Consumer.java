@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Consumer {
 	public static BlockingQueue<Resultable> queue;
-	static final int MAX_QUEUE_SIZE=100;
+	static final int MAX_QUEUE_SIZE=10000;
 	private String resultText="default";
 	private double resultKey=-1000;
 	private double resultScore=-1000;
@@ -31,10 +31,10 @@ public class Consumer {
 			//consume();
 		//}//end while
 		//}		
-		//while (Runner.getFinished()==false) {
-		//	consume();
+		/*while (Runner.getFinished()==false) {
+			consume();
 			//System.out.println("Consume "+Runner.finished);
-		//}
+		}*/
 		
 		for (int i = 0; i < Runner.totalCount; i++) {
 			consume();
@@ -52,7 +52,7 @@ public class Consumer {
 						try {
 							//System.out.println("taking from queue");
 							Resultable r = queue.take();
-							System.out.println("Took From Queue");
+							//System.out.println("Took From Queue");
 							Runner.incrementConsumeCount();
 							//System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
 							
@@ -69,8 +69,8 @@ public class Consumer {
 									resultKey=r.getKey();
 									resultText=r.getPlaintext();
 									
-									System.out.println("new score");
-									System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
+									//System.out.println("new score");
+									//System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
 								}//if		
 							}
 						
@@ -95,7 +95,7 @@ public class Consumer {
 	}
 	
 	public void getResults(){
-		System.out.println("Plaintext is "+resultText);
+		System.out.println("\nPlaintext is "+resultText);
 		System.out.printf("Key is %.0f\n",resultKey);
 		System.out.printf("best Score is %.2f",resultScore);
 		

@@ -18,18 +18,11 @@ public class CypherParser {
 		br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));		
 		
 		while((next = br.readLine())!= null){	
-				cypherText+=next;
-					
+				cypherText+=next;					
 		}//while	
 	
 		br.close();
 		
-		//returns string of size 24 if string is larger than 24 this helps with large files creating lots of huge threads
-		
-		/*if(cypherText.length()>24){
-			cypherText=cypherText.substring(0, 24);
-			System.out.println(cypherText);
-		}*/
 		return cypherText;		
 	}
 

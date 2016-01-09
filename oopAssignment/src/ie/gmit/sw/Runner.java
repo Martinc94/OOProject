@@ -16,6 +16,7 @@ public class Runner {
 		//Get Cyphertext
 		cypherText= getCyphertext();
 		System.out.println(cypherText);
+		
 		//reading from file doesnt add poison result
 
 		//STOPTHEMATTHECASTLEGATES - used while testing code
@@ -23,11 +24,13 @@ public class Runner {
 		
 		//fill quadgramMap
 		QuadGramMap.fillMap();			
-		
+			
 		//create a worker with threads that decrypts the cyphertext with different keys
+		System.out.println("Starting To Decrypt");
 		Worker w = new Worker(cypherText);
 		
 		//creates a new consumer with threads that check score and returns best result
+		System.out.println("Starting To Consume");
 		Consumer c = new Consumer();	
 		
 		while(getFinished()==false){
