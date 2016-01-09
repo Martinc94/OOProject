@@ -46,22 +46,12 @@ public class Runner {
 		//creates a new consumer with threads that check score and returns best result
 		Consumer c = new Consumer();	
 		
-		//starts consuming
-		//c.consume();
 		
-		//keep runner alive
-		//while(Consumer.queue.isEmpty()==false){
-			//c.consume();
-			//System.out.println("loop");
+		//while(Consumer.queue.peek()instanceof PoisonResult == false){
+		//	c.consume();
 		//}
 		
-		while(Consumer.queue.peek()instanceof PoisonResult == false){
-			c.consume();
-		}
-		System.out.println("after consumer check");
 		
-		//output plaintext, key and score of the highest scoring decrypted text
-		 //System.out.println("output of plaintext, key and score of the highest scoring decrypted text");
 		while(consumeCount!=totalCount){
 			//wait until all finished consuming
 		}//end while
