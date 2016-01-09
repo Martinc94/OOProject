@@ -9,7 +9,6 @@ public class FileParser {
 	public Map<String,Double>Parse(String file){
 		Map<String,Double> temp = new ConcurrentHashMap<String,Double>();
 		return temp;
-		
 	}
 	
 	@SuppressWarnings("resource")

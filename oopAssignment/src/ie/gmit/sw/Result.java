@@ -34,8 +34,6 @@ public class Result implements Resultable {
 
 	public void setScore(double score) {
 		this.score = score;
-	}
-	
-	
+	}	
 
 }

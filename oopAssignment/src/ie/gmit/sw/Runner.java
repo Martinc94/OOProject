@@ -12,6 +12,7 @@ public class Runner {
 	public static int finCount=2;
 	public static int totalCount=2;
 	public static int consumeCount=2;
+	public static boolean finished=false;
 
 	public static void main(String[] args) {
 		//1 get cyphertext
@@ -40,24 +41,33 @@ public class Runner {
 		//fill quadgramMap
 		QuadGramMap.fillMap();	
 		
+			
 		//create a worker with threads that decrypts the cyphertext with different keys
 		Worker w = new Worker(cypherText);
 		
 		//creates a new consumer with threads that check score and returns best result
-		Consumer c = new Consumer();	
+		Consumer c = new Consumer();
 		
 		
 		//while(Consumer.queue.peek()instanceof PoisonResult == false){
 		//	c.consume();
 		//}
 		
+
 		
-		while(consumeCount!=totalCount){
+		
+
+		//output plaintext, key and score of the highest scoring decrypted text
+		 //System.out.println("output of plaintext, key and score of the highest scoring decrypted text");
+		//while(consumeCount<totalCount){
+		while(finished==false){
+
 			//wait until all finished consuming
 		}//end while
 		
 		c.getResults();
 
+		
 	}
 	
 	static void showMenu(){
@@ -108,4 +118,13 @@ public class Runner {
 		return text;
 	}//end getCyphertext
 
+	public static synchronized void incrementTotalCount() {
+        totalCount++;
+    }
+	public static synchronized void incrementFinCount() {
+        finCount++;
+    }
+	public static synchronized void incrementConsumeCount() {
+		consumeCount++;
+    }
 }//end runner

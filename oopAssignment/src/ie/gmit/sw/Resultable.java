@@ -13,5 +13,4 @@ public interface Resultable {
 	double getScore();
 
 	void setScore(double score);
-
 }

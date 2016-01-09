@@ -13,8 +13,7 @@ public class CypherBreaker {
 	public CypherBreaker(String cypherText){
 		queue = new ArrayBlockingQueue<Resultable>(MAX_QUEUE_SIZE);
 		this.cypherText=cypherText;
-		init();
-		
+		init();	
 	}
 	
 	public void init(){

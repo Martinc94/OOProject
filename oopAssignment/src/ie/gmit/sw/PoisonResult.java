@@ -4,6 +4,7 @@ public class PoisonResult implements Resultable{
 
 	public PoisonResult(String plaintext, int key, double score) {
 		//super(plaintext, key, score);
+		
 	}
 
 	@Override
