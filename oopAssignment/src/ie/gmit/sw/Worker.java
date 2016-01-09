@@ -25,7 +25,7 @@ public class Worker {
 		boolean end=false;
 		
 		while(end==false){
-			if(Runner.totalCount==Runner.finCount){
+			if(Runner.getTotalCount()==Runner.getFinCount()){
 				//Adds Poisoned Result to queue to signal all finished
 				AddPoisonResult();
 				end=true;
@@ -49,6 +49,7 @@ public class Worker {
 		for(int i = 2;i<=cypherText.length()/2;i++ ){	
 			Runner.incrementTotalCount();	
 		}//end for
+		//System.out.println(Runner.totalCount);
 	}
 
 }

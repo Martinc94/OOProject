@@ -18,7 +18,7 @@ public class Consumer {
 	public Consumer() {
 		//starts threads
 		startConsumer();
-		System.out.println("start consumer");
+		System.out.println("started consumer");
 	}
 	
 	private void startConsumer() {
@@ -31,9 +31,13 @@ public class Consumer {
 			//consume();
 		//}//end while
 		//}		
-		while (Runner.finished==false) {
+		//while (Runner.getFinished()==false) {
+		//	consume();
+			//System.out.println("Consume "+Runner.finished);
+		//}
+		
+		for (int i = 0; i < Runner.totalCount; i++) {
 			consume();
-			//System.out.println(Runner.finished);
 		}
 		
 		
@@ -46,7 +50,7 @@ public class Consumer {
 					//if(queue.isEmpty()==false){
 					if(Runner.getFinished()==false){
 						try {
-							System.out.println("taking from queue");
+							//System.out.println("taking from queue");
 							Resultable r = queue.take();
 							System.out.println("Took From Queue");
 							Runner.incrementConsumeCount();
@@ -55,15 +59,18 @@ public class Consumer {
 							if(r instanceof PoisonResult == true)
 							{
 								System.out.println("POISONED");
-								Runner.setFinished(true);
+								Runner.setFinished();
 							}
 							else{
-								System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
+								//System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
 								
 								if(r.getScore()>resultScore){
 									resultScore=r.getScore();
 									resultKey=r.getKey();
 									resultText=r.getPlaintext();
+									
+									System.out.println("new score");
+									System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
 								}//if		
 							}
 						
