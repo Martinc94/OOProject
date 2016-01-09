@@ -30,8 +30,7 @@ public class Consumer {
 			//System.out.println(queue.peek()instanceof PoisonResult);
 			//consume();
 		//}//end while
-		//}
-		
+		//}		
 		while (Runner.finished==false) {
 			consume();
 			//System.out.println(Runner.finished);

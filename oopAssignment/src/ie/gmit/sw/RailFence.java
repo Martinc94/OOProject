@@ -122,7 +122,7 @@ public class RailFence {
 			System.out.println();
 		}
 	}
-		
+	
 	public static void main(String[] args) throws Exception{
 		String s = new RailFence().decrypt("TTFOHATGRNREEANOETYRCIMHHAKT", 5);
 		System.out.println(">" + s);

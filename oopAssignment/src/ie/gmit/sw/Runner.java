@@ -57,9 +57,6 @@ public class Runner {
 			//System.out.println("loop");
 		//}
 		
-		
-		
-		
 		//output plaintext, key and score of the highest scoring decrypted text
 		 //System.out.println("output of plaintext, key and score of the highest scoring decrypted text");
 		//while(consumeCount<totalCount){
