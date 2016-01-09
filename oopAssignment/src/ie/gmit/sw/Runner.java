@@ -65,7 +65,6 @@ public class Runner {
 		//while(consumeCount<totalCount){
 		while(finished==false){
 			//wait until all finished consuming
-			//System.out.println(consumeCount+" "+finCount+" "+totalCount);
 		}//end while
 		
 		c.getResults();
