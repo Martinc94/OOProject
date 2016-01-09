@@ -1,9 +1,5 @@
 package ie.gmit.sw;
-
-import java.awt.Menu;
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Scanner;
 
 public class Runner {
@@ -15,32 +11,18 @@ public class Runner {
 	public static boolean finished=false;
 
 	public static void main(String[] args) {
-		//1 get cyphertext
-		
-		//2 create workers
-		
-		//3 threads decrypt
-		
-		//4 threads score the plaintext
-		
-		//5 thread puts result in queue
-		
-		//6 consumer takes result from queue and compare
-		
-		//7 output plaintext
-		
 		String cypherText="";
 		
 		//Get Cyphertext
-		//cypherText= getCyphertext();
-		cypherText="SATTMTSLSOETAEEPHHCGTTEA";	
-	
-		//STOPTHEMATTHECASTLEGATES
-		//String cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
+		cypherText= getCyphertext();
+		System.out.println(cypherText);
+		//reading from file doesnt add poison result
+
+		//STOPTHEMATTHECASTLEGATES - used while testing code
+		//cypherText = "SATTMTSLSOETAEEPHHCGTTEA";
 		
 		//fill quadgramMap
-		QuadGramMap.fillMap();	
-		
+		QuadGramMap.fillMap();			
 			
 		//create a worker with threads that decrypts the cyphertext with different keys
 		Worker w = new Worker(cypherText);
@@ -48,26 +30,11 @@ public class Runner {
 		//creates a new consumer with threads that check score and returns best result
 		Consumer c = new Consumer();
 		
-		
-		//while(Consumer.queue.peek()instanceof PoisonResult == false){
-		//	c.consume();
-		//}
-		
-
-		
-		
-
-		//output plaintext, key and score of the highest scoring decrypted text
-		 //System.out.println("output of plaintext, key and score of the highest scoring decrypted text");
-		//while(consumeCount<totalCount){
-		while(finished==false){
-
+		while(getFinished()==false){
 			//wait until all finished consuming
 		}//end while
 		
-		c.getResults();
-
-		
+		c.getResults();		
 	}
 	
 	static void showMenu(){
@@ -79,8 +46,9 @@ public class Runner {
 	
 	static String getCyphertext(){
 		int option=0;
-		String command;
+		//String command;
 		boolean valid=false;
+		String input = "";
 		String text = "";
 		do{
 			showMenu();
@@ -97,16 +65,24 @@ public class Runner {
 			case 1:
 				//enter cyphertext
 				System.out.println("Enter your Cyphertext to be decrypted: Eg SATTMTSLSOETAEEPHHCGTTEA");
-				text = console.next();
-				text =text.toUpperCase();
+				input = console.next();
+				text =input.toUpperCase();
 			    valid=true;	
 				break;
 				
 			case 2:
 				//enter file directory
 				System.out.println("Enter file directory of Cyphertext to be decrypted: Eg C:/myFolder/cyphertext.txt");
-				//parseFile Method
-				//
+				//C:/Users/Martinc/Desktop/file1.txt
+				//input = console.next();
+				input="C:/Users/Martinc/Desktop/file1.txt";
+				CypherParser cy = new CypherParser();
+				try {
+					text=cy.parseFile(input);
+				} catch (IOException e) {
+					System.out.println("Unable to open File");
+					e.printStackTrace();
+				}
 				valid=true;
 				break;
 			default:
@@ -118,6 +94,7 @@ public class Runner {
 		return text;
 	}//end getCyphertext
 
+	//Methods to keep Syncronization of variables
 	public static synchronized void incrementTotalCount() {
         totalCount++;
     }
@@ -127,4 +104,12 @@ public class Runner {
 	public static synchronized void incrementConsumeCount() {
 		consumeCount++;
     }
+	
+	public static synchronized boolean getFinished(){
+		return finished;	
+	}
+	
+	public static synchronized void setFinished(boolean fin){
+		finished=fin;	
+	}
 }//end runner

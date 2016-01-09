@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 public class Consumer {
 	public static BlockingQueue<Resultable> queue;
 	static final int MAX_QUEUE_SIZE=100;
-	private String resultText;
-	private double resultKey=0;
+	private String resultText="default";
+	private double resultKey=-1000;
 	private double resultScore=-1000;
 	
 	
@@ -35,7 +35,7 @@ public class Consumer {
 			consume();
 			//System.out.println(Runner.finished);
 		}
-		System.out.println("done");
+		
 		
 	}//end startConsumer
 
@@ -43,32 +43,44 @@ public class Consumer {
 		//in loop until poisoned	
 		new Thread(new Runnable() {
 			public void run() {
-					
 					//if(queue.isEmpty()==false){
-					if(Runner.finished==false){
+					if(Runner.getFinished()==false){
 						try {
 							System.out.println("taking from queue");
 							Resultable r = queue.take();
+							System.out.println("Took From Queue");
 							Runner.incrementConsumeCount();
+							//System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
 							
 							if(r instanceof PoisonResult == true)
 							{
 								System.out.println("POISONED");
-								Runner.finished=true;
+								Runner.setFinished(true);
 							}
+							else{
+								System.out.println(r.getScore()+"     "+r.getKey()+"       "+r.getPlaintext());
+								
+								if(r.getScore()>resultScore){
+									resultScore=r.getScore();
+									resultKey=r.getKey();
+									resultText=r.getPlaintext();
+								}//if		
+							}
+						
 							
 							
-							//save if better than 0
-							if(r.getScore()>resultScore){
+							//save if better than result score
+							/*if(r.getScore()>resultScore){
 								resultScore=r.getScore();
 								resultKey=r.getKey();
 								resultText=r.getPlaintext();
-							}//if						
+							}//if	*/					
 							
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}
+					}//end if 
+					
 				}
 		}).start();
 		

@@ -20,6 +20,7 @@ public class Decrypter implements Runnable{
 		
 		//RailFence object decrypts cypherText with given key
 		String plaintext =rf.decrypt(cypherText, key);
+		//System.out.println(plaintext +"  "+key);
 		
 		//Create a textScorer object and pass it QuadGramMap
 		TextScorer ts = new TextScorer(QuadGramMap.QMap);

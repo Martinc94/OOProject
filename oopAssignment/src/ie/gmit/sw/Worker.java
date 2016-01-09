@@ -16,9 +16,8 @@ public class Worker {
 	
 	public void startThreads(){
 		calcTotal();
-	//public synchronized void startThreads(){
 		for(int i = 2;i<=cypherText.length()/2;i++ ){
-			//System.out.println("creating worker thread with key "+i);
+			System.out.println("creating worker thread with key "+i);
 			new Thread(new Decrypter(Consumer.queue, cypherText,i)).start();
 			
 		}//end for
@@ -26,7 +25,6 @@ public class Worker {
 		boolean end=false;
 		
 		while(end==false){
-			System.out.println(Runner.totalCount+" tot      fin "+Runner.finCount);
 			if(Runner.totalCount==Runner.finCount){
 				//Adds Poisoned Result to queue to signal all finished
 				AddPoisonResult();
