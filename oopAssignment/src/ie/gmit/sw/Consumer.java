@@ -2,7 +2,9 @@ package ie.gmit.sw;
 
 import java.util.concurrent.BlockingQueue;
 
+/** Class that Contains a queue of resultable objects and takes resultable off queue and scores them */
 public class Consumer {
+	/** BlockingQueue that stores resultable objects */
 	public static BlockingQueue<Resultable> queue;
 	static final int MAX_QUEUE_SIZE=10000;
 	private String resultText="default";
@@ -14,14 +16,15 @@ public class Consumer {
 		//starts threads
 		startConsumer();
 	}
-	
+	/** Method that creates a loop that consumes results off queue */
 	private void startConsumer() {
 		for (int i = 1; i < Runner.totalCount; i++) {
 			consume();
 		}	
 		
 	}//end startConsumer
-
+	
+	/** Method that consumes results off queue */
 	public void consume(){	
 					if(finished==false){
 						try {
@@ -48,6 +51,7 @@ public class Consumer {
 					}//end if 	
 	}//end consume
 	
+	/** Method that Prints the highest scoring result */
 	public void getResults(){
 		System.out.println("\nPlaintext is "+resultText);
 		System.out.printf("Key is %.0f\n",resultKey);

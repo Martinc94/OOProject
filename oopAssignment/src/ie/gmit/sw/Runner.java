@@ -3,11 +3,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Runner {
-	//public static int count;
 	static Scanner console = new Scanner(System.in);
+	/**Int that keeps count when a thread finishes*/
 	public static int finCount=2;
+	/**Int that keeps count of total amount of thread*/
 	public static int totalCount=2;
-
+	
+	/**Main method that starts program.
+	 *  It gets the Cyphertext from user, Starts Decrypter Threads, Starts Consumer and Prints Results. */
 	public static void main(String[] args) {	
 		//Get Cyphertext
 		String cypherText= getCyphertext();
@@ -25,7 +28,7 @@ public class Runner {
 		
 		c.getResults();		
 	}
-	
+	/**Displays a menu on the Command line.*/
 	static void showMenu(){
 		System.out.println("Option 1 - Enter cyphertext by keyboard:");	
 		System.out.println("Option 2 - Enter cyphertext from file:");	
@@ -33,6 +36,7 @@ public class Runner {
 				
 	}//end showMenu
 	
+	/**Returns a string Containing Cyphertext from the Command line or from a file.*/
 	static String getCyphertext(){
 		int option=0;
 		boolean valid=false;
@@ -80,15 +84,19 @@ public class Runner {
 	}//end getCyphertext
 
 	//Methods to keep Syncronization of variables
+	/**Method to keep Syncronization of incrementing totalCount.*/
 	public static synchronized void incrementTotalCount() {
         totalCount++;
     }
+	/**Method to keep Syncronization of incrementing finCount.*/
 	public static synchronized void incrementFinCount() {
         finCount++;
     }	
+	/**Method to keep Syncronization while returning totalCount.*/
 	public static synchronized int getTotalCount(){
 		return totalCount;	
 	}
+	/**Method to keep Syncronization while returning finCount.*/
 	public static synchronized int getFinCount(){
 		 return finCount;	
 	}		

@@ -2,6 +2,7 @@ package ie.gmit.sw;
 
 import java.util.concurrent.BlockingQueue;
 
+/** Class that decrypts text given Cyphertext and an int and adds to a given queue */
 public class Decrypter implements Runnable{
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
@@ -14,6 +15,7 @@ public class Decrypter implements Runnable{
 		this.key=key;
 	}
 
+	/** Method all Created decypter threads run. */
 	public void run() {
 		//Create a RailFence object
 		RailFence rf = new RailFence();
