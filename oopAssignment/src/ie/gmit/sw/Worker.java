@@ -8,12 +8,13 @@ public class Worker {
 	public Worker(String cypherText){
 		Consumer.queue = new ArrayBlockingQueue<Resultable>(Consumer.MAX_QUEUE_SIZE);
 		this.cypherText=cypherText;
+		//calculates total amount of threads neaded
+		calcTotal();
 		//starts threads
 		startThreads();
 	}
 	
 	public void startThreads(){
-		calcTotal();
 		for(int i = 2;i<=cypherText.length()/2;i++ ){
 			//System.out.println("creating worker thread with key "+i);
 			new Thread(new Decrypter(Consumer.queue, cypherText,i)).start();

@@ -8,6 +8,7 @@ public class Consumer {
 	private String resultText="default";
 	private double resultKey=-1000;
 	private double resultScore=-1000;
+	private boolean finished;
 		
 	public Consumer() {
 		//starts threads
@@ -15,26 +16,22 @@ public class Consumer {
 	}
 	
 	private void startConsumer() {
-		for (int i = 0; i < Runner.totalCount; i++) {
+		for (int i = 1; i < Runner.totalCount; i++) {
 			consume();
 		}	
 		
 	}//end startConsumer
 
 	public void consume(){	
-		//in loop until poisoned	
-		new Thread(new Runnable() {
-			public void run() {
-					if(Runner.getFinished()==false){
-						try {					
+					if(finished==false){
+						try {
 							Resultable r = queue.take();
-							//System.out.println("Took From Queue");
-							Runner.incrementConsumeCount();
-							
+							//System.out.println("Took From Queue");						
 							if(r instanceof PoisonResult == true)
 							{
+								//Poisoned Object Found							
+								finished=true;
 								//System.out.println("POISONED");
-								Runner.setFinished();
 							}
 							else{
 															
@@ -48,9 +45,7 @@ public class Consumer {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}//end if 
-				}
-		}).start();	
+					}//end if 	
 	}//end consume
 	
 	public void getResults(){

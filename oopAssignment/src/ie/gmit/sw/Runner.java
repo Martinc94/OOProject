@@ -7,8 +7,6 @@ public class Runner {
 	static Scanner console = new Scanner(System.in);
 	public static int finCount=2;
 	public static int totalCount=2;
-	public static int consumeCount=2;
-	public static boolean finished=false;
 
 	public static void main(String[] args) {	
 		//Get Cyphertext
@@ -18,17 +16,12 @@ public class Runner {
 		
 		//fill quadgramMap
 		QuadGramMap.fillMap();			
-			
+		
 		//create a worker with threads that decrypts the cyphertext with different keys
 		Worker w = new Worker(cypherText);
 		
 		//creates a new consumer with threads that check score and returns best result
 		Consumer c = new Consumer();	
-		
-		System.out.println("Waiting For Consumers for Finish");
-		while(getFinished()==false){
-			//wait until all finished consuming
-		}//end while
 		
 		c.getResults();		
 	}
@@ -92,23 +85,12 @@ public class Runner {
     }
 	public static synchronized void incrementFinCount() {
         finCount++;
-    }
-	public static synchronized void incrementConsumeCount() {
-		consumeCount++;
-    }
-	public static synchronized boolean getFinished(){
-		return finished;	
-	}
+    }	
 	public static synchronized int getTotalCount(){
 		return totalCount;	
 	}
 	public static synchronized int getFinCount(){
-		return finCount;	
-	}
-	public static synchronized int getConsumeCount(){
-		return consumeCount;	
-	}	
-	public static synchronized void setFinished(){
-		finished=true;	
-	}
+		 return finCount;	
+	}		
+	
 }//end runner
